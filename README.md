@@ -9,6 +9,7 @@ Personal inventory-driven cooking assistant. Scan groceries, track what you have
 - Python 3.12+
 - [uv](https://docs.astral.sh/uv/) (package manager)
 - Spoonacular API key (free at https://spoonacular.com/food-api)
+- ngrok (for phone camera access — see below)
 
 ---
 
@@ -34,53 +35,44 @@ SPOONACULAR_API_KEY=your_key_here
 
 ---
 
-## Starting the server
+## Daily usage
+
+| Command | What it does |
+|---|---|
+| `make dev` | Start server + open ngrok HTTPS tunnel (use this) |
+| `make stop` | Stop the server |
+| `make restart` | Restart the server |
+| `make status` | Check if server is running |
+| `make logs` | Tail the server log |
+| `make tunnel` | Open ngrok tunnel only (if server already running) |
+
+**Typical session:**
 
 ```bash
-uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
+make dev
 ```
 
-The app will be available at `http://localhost:8000`.
-
-From a phone on the same network, use your machine's local IP instead:
-
-```
-http://192.168.1.xx:8000
-```
-
-### Run with auto-reload (development)
-
-```bash
-uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-```
+ngrok will print a URL like `https://abc123.ngrok-free.app` — open that on your phone. Press `Ctrl+C` to close the tunnel, then `make stop` to shut down the server.
 
 ---
 
-## Stopping the server
+## ngrok setup (one-time)
 
-Press `Ctrl+C` in the terminal where the server is running.
+Mobile browsers require HTTPS to access the camera. ngrok provides a temporary HTTPS tunnel to your local server.
 
----
+1. Sign up free at https://ngrok.com
+2. Install ngrok:
+   ```bash
+   curl -Lo /tmp/ngrok.tgz https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+   tar -xzf /tmp/ngrok.tgz -C /tmp
+   sudo mv /tmp/ngrok /usr/local/bin/ngrok
+   ```
+3. Add your auth token (from ngrok dashboard):
+   ```bash
+   ngrok config add-authtoken YOUR_TOKEN
+   ```
 
-## Running in the background (Raspberry Pi)
-
-To keep the server running after you close the terminal:
-
-```bash
-nohup uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 > server.log 2>&1 &
-```
-
-To stop it:
-
-```bash
-pkill -f "uvicorn app.main"
-```
-
-To check if it's running:
-
-```bash
-pgrep -a -f "uvicorn app.main"
-```
+> Note: the ngrok URL changes each session on the free plan. For a permanent setup, configure HTTPS on the Raspberry Pi instead.
 
 ---
 

@@ -15,3 +15,5 @@ wheels/
 # Runtime files
 pantry.db
 server.log
+server.pid
+ngrok_backup.txt
