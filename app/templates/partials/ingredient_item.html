@@ -1,0 +1,16 @@
+<li id="ing-{{ ing.id }}" class="{% if not ing.present %}absent{% endif %}">
+  <span class="item-name">{{ ing.name }}</span>
+  <button hx-patch="/htmx/inventory/{{ ing.id }}/toggle"
+          hx-target="#ing-{{ ing.id }}"
+          hx-swap="outerHTML"
+          class="btn btn-sm btn-secondary">
+    {{ 'Present' if ing.present else 'Absent' }}
+  </button>
+  <button hx-delete="/htmx/inventory/{{ ing.id }}"
+          hx-target="#ing-{{ ing.id }}"
+          hx-swap="outerHTML"
+          hx-confirm="Remove {{ ing.name }}?"
+          class="btn btn-sm btn-danger">
+    Remove
+  </button>
+</li>

@@ -1,0 +1,15 @@
+<li id="groc-{{ item.id }}" class="{% if item.purchased %}purchased{% endif %}">
+  <span class="item-name">{{ item.name }}</span>
+  <button hx-patch="/htmx/grocery/{{ item.id }}/purchased"
+          hx-target="#groc-{{ item.id }}"
+          hx-swap="outerHTML"
+          class="btn btn-sm btn-secondary">
+    {{ 'Undo' if item.purchased else 'Bought' }}
+  </button>
+  <button hx-delete="/htmx/grocery/{{ item.id }}"
+          hx-target="#groc-{{ item.id }}"
+          hx-swap="outerHTML"
+          class="btn btn-sm btn-danger">
+    Remove
+  </button>
+</li>

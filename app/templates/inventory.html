@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Pantry</h1>
+
+<form class="form-row"
+      hx-post="/htmx/inventory"
+      hx-target="#ingredient-list"
+      hx-swap="beforeend"
+      hx-on::after-request="this.reset()">
+  <input type="text" name="name" placeholder="Add ingredient..." required autocomplete="off">
+  <button type="submit" class="btn">Add</button>
+</form>
+
+<ul id="ingredient-list">
+  {% for ing in ingredients %}
+  {% include "partials/ingredient_item.html" %}
+  {% endfor %}
+</ul>
+
+{% if not ingredients %}
+<div class="empty">No ingredients yet. Scan a barcode or add one above.</div>
+{% endif %}
+{% endblock %}

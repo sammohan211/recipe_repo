@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pantry Assistant</title>
+  <script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; max-width: 600px; margin: 0 auto; padding-bottom: 72px; background: #fafafa; }
+    nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 600px; background: #fff; border-top: 1px solid #e5e7eb; display: flex; z-index: 10; }
+    nav a { flex: 1; text-align: center; padding: 14px 4px 10px; text-decoration: none; color: #6b7280; font-size: 12px; font-weight: 500; }
+    nav a.active { color: #2563eb; }
+    h1 { padding: 20px 16px 8px; font-size: 22px; font-weight: 700; }
+    .btn { display: inline-block; padding: 10px 18px; background: #2563eb; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; text-decoration: none; font-weight: 500; }
+    .btn-sm { padding: 7px 12px; font-size: 13px; }
+    .btn-danger { background: #dc2626; }
+    .btn-secondary { background: #6b7280; }
+    .btn-outline { background: #fff; color: #2563eb; border: 1px solid #2563eb; }
+    .btn-full { display: block; width: calc(100% - 32px); margin: 0 16px; text-align: center; }
+    input[type=text], input[type=number] { width: 100%; padding: 11px 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px; background: #fff; }
+    input:focus { outline: none; border-color: #2563eb; }
+    .form-row { display: flex; gap: 8px; padding: 12px 16px; }
+    .form-row input { flex: 1; }
+    ul { list-style: none; padding: 0; }
+    li { display: flex; align-items: center; padding: 13px 16px; border-bottom: 1px solid #f0f0f0; gap: 8px; background: #fff; }
+    .item-name { flex: 1; font-size: 16px; }
+    .absent .item-name { color: #9ca3af; text-decoration: line-through; }
+    .section-title { padding: 16px 16px 6px; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; }
+    .card { margin: 8px 16px; padding: 14px; border: 1px solid #e5e7eb; border-radius: 10px; background: #fff; }
+    .card h3 { font-size: 15px; margin-bottom: 4px; }
+    .card a { color: #2563eb; font-size: 14px; text-decoration: none; }
+    .card a:hover { text-decoration: underline; }
+    .missing { font-size: 13px; color: #dc2626; margin-top: 4px; }
+    .empty { padding: 48px 16px; text-align: center; color: #9ca3af; font-size: 15px; }
+    .alert { margin: 12px 16px; padding: 12px 14px; border-radius: 8px; font-size: 14px; }
+    .alert-error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+    .purchased .item-name { color: #9ca3af; text-decoration: line-through; }
+  </style>
+</head>
+<body>
+{% block content %}{% endblock %}
+<nav>
+  <a href="/inventory" {% if active == 'inventory' %}class="active"{% endif %}>Pantry</a>
+  <a href="/scan" {% if active == 'scan' %}class="active"{% endif %}>Scan</a>
+  <a href="/recipes" {% if active == 'recipes' %}class="active"{% endif %}>Recipes</a>
+  <a href="/grocery" {% if active == 'grocery' %}class="active"{% endif %}>Grocery</a>
+</nav>
+</body>
+</html>

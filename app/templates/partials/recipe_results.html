@@ -1,0 +1,36 @@
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+{% if not error %}
+  {% if can_make_now %}
+  <div class="section-title">Can make now</div>
+  {% for r in can_make_now %}
+  <div class="card">
+    <h3><a href="{{ r.url }}" target="_blank">{{ r.title }}</a></h3>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  {% if missing_a_few %}
+  <div class="section-title">Missing a few ingredients</div>
+  {% for r in missing_a_few %}
+  <div class="card">
+    <h3><a href="{{ r.url }}" target="_blank">{{ r.title }}</a></h3>
+    <p class="missing">Missing: {{ r.missing_ingredients | join(', ') }}</p>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  {% if not can_make_now and not missing_a_few %}
+  <div class="empty">No recipes found for your current ingredients.</div>
+  {% endif %}
+{% endif %}
+
+<div style="padding: 16px;">
+  <a href="https://www.google.com/search?q={{ search_query | urlencode }}"
+     target="_blank"
+     class="btn btn-outline btn-full">
+    Search Google for more recipes
+  </a>
+</div>

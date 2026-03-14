@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Grocery List</h1>
+
+<form class="form-row"
+      hx-post="/htmx/grocery"
+      hx-target="#grocery-list"
+      hx-swap="beforeend"
+      hx-on::after-request="this.reset()">
+  <input type="text" name="name" placeholder="Add item..." required autocomplete="off">
+  <button type="submit" class="btn">Add</button>
+</form>
+
+<ul id="grocery-list">
+  {% for item in items %}
+  {% include "partials/grocery_item.html" %}
+  {% endfor %}
+</ul>
+
+{% if not items %}
+<div class="empty">Your grocery list is empty.</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Recipes</h1>
+
+<div style="padding: 0 16px 16px;">
+  <button class="btn btn-full"
+          hx-post="/htmx/recipes"
+          hx-target="#recipe-results"
+          hx-swap="innerHTML"
+          hx-indicator="#loading">
+    Find Keto Recipes
+  </button>
+  <p id="loading" style="display:none; padding: 12px 0; color: #6b7280; font-size: 14px;" class="htmx-indicator">
+    Searching recipes...
+  </p>
+</div>
+
+<div id="recipe-results"></div>
+{% endblock %}

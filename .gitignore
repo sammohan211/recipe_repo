@@ -8,3 +8,10 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Environment variables — never commit secrets
+.env
+
+# Runtime files
+pantry.db
+server.log
